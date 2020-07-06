@@ -2,9 +2,11 @@ package com.remondis.remap;
 
 import static com.remondis.remap.ReflectionUtil.getCollector;
 import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -120,6 +122,18 @@ public class Mapper<S, D> {
     } else {
       return mapping.map(source);
     }
+  }
+
+  /**
+   * Gets the transformation for the given sourcePropertyName.
+   *
+   * @param sourcePropertyName The name of the source property
+   * @return Returns an optional including the transformation if any could be found
+   */
+  public Optional<Transformation> getTransformation(String sourcePropertyName) {
+    requireNonNull(sourcePropertyName, "sourcePropertyName must not be null");
+
+    return getMapping().getTransformation(sourcePropertyName);
   }
 
   @SuppressWarnings("unchecked")

@@ -8,6 +8,7 @@ import static com.remondis.remap.MappingException.zeroInteractions;
 import static com.remondis.remap.Properties.createUnmappedMessage;
 import static com.remondis.remap.ReflectionUtil.newInstance;
 import static java.util.Objects.nonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.beans.PropertyDescriptor;
 import java.util.Collection;
@@ -711,6 +712,21 @@ public class MappingConfiguration<S, D> {
       t.performTransformation(source, destinationObject);
     }
     return destinationObject;
+  }
+
+  /**
+   * Gets the transformation for the given sourcePropertyName.
+   *
+   * @param sourcePropertyName The name of the source property
+   * @return Returns an optional including the transformation if any could be found
+   */
+  Optional<Transformation> getTransformation(String sourcePropertyName) {
+    requireNonNull(sourcePropertyName, "sourcePropertyName must not be null");
+
+    return mappings.stream()
+        .filter(otherTransformation -> sourcePropertyName.equals(otherTransformation.getSourceProperty()
+            .getName()))
+        .findFirst();
   }
 
   private D createDestination() {
