@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  *
  * @author schuettec
  */
-abstract class Transformation {
+public abstract class Transformation {
 
   protected PropertyDescriptor sourceProperty;
   protected PropertyDescriptor destinationProperty;
@@ -116,11 +116,21 @@ abstract class Transformation {
     return this.mapping.hasMapperFor(sourceType, destinationType);
   }
 
-  PropertyDescriptor getSourceProperty() {
+  /**
+   * Gets the source property.
+   *
+   * @return Returns the {@link PropertyDescriptor} for the source property of this transformation.
+   */
+  public PropertyDescriptor getSourceProperty() {
     return sourceProperty;
   }
 
-  PropertyDescriptor getDestinationProperty() {
+  /**
+   * Gets the destination property.
+   *
+   * @return Returns the {@link PropertyDescriptor} for the target property of this transformation.
+   */
+  public PropertyDescriptor getDestinationProperty() {
     return destinationProperty;
   }
 
